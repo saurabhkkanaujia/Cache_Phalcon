@@ -19,6 +19,8 @@ use Phalcon\Cache;
 use Phalcon\Cache\AdapterFactory;
 use Phalcon\Storage\SerializerFactory;
 
+use Phalcon\Cache\Adapter\Stream as cc;
+
 $config = new Config([]);
 
 // Define some absolute path constants to aid in locating resources
@@ -61,16 +63,15 @@ $container->set(
     'cache',
     function () {
         $serializerFactory = new SerializerFactory();
-        $adapterFactory    = new AdapterFactory($serializerFactory);
 
         $options = [
-            'lifetime'          => 7200
+            'defaultSerializer' => 'Json',
+            'lifetime'          => 7200,
+            'storageDir'        => APP_PATH . '/cache',
         ];
 
-        $adapter = $adapterFactory->newInstance('apcu', $options);
-
-        $cache = new Cache($adapter);
-        return $cache;
+        $adapter = new cc($serializerFactory, $options);
+        return $adapter;
     }
 );
 

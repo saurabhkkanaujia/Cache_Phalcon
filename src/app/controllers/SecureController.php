@@ -17,7 +17,6 @@ class SecureController extends Controller
         if ($this->request->isPost()) {
             $arr = $this->request->getPost();
         }
-        // $arr = $this->dispatcher->getParams();
 
         $aclFile = APP_PATH . '/security/acl.cache';
 
@@ -67,9 +66,6 @@ class SecureController extends Controller
                     $acl->addRole($arr['role_field']);
                 }
 
-                // $acl->addRole('manager');
-                // $acl->addRole('accounting');
-                // $acl->addRole('guest');
 
                 foreach ($arr['component'] as $key => $value) {
                     $componentObj = Components::find($value);
@@ -81,19 +77,6 @@ class SecureController extends Controller
                     );
                 }
 
-                // $acl->addComponent(
-                //     'products',
-                //     [
-                //         'listProducts',
-                //         'index'
-                //     ]
-                // );
-                // $acl->addComponent(
-                //     'index',
-                //     [
-                //         'addRoles'
-                //     ]
-                // );
 
                 foreach ($arr['component'] as $key => $value) {
                     $componentObj = Components::find($value);
