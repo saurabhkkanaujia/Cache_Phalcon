@@ -16,7 +16,7 @@ class Locale extends Injectable
     public function getTranslator(): NativeArray
     {
 
-        $language = $this->request->get('locale');
+        $language = $this->request->get('locale')??'en';
 
         $messages = [];
         $translationFile = '../app/messages/' . $language . '.php';
